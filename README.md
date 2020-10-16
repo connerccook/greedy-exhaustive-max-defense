@@ -6,4 +6,4 @@ Group members:
 
 Conner Cook connerccook@csu.fullerton.edu
 
-Charles Babbage charlesbab@csu.fullerton.edu
+Peter Le charlesbab@csu.fullerton.edu
