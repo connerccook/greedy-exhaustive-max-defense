@@ -254,7 +254,7 @@ std::unique_ptr<ArmorVector> greedy_max_defense
 	double total_cost
 )
 {
-	std::unique_ptr<ArmorVector> greedy = std::make_unique<ArmorVector>();
+	//std::unique_ptr<ArmorVector> greedy = std::make_unique<ArmorVector>();
 
 	// TODO: implement this function, then delete the return statement below
 	/*ArmorVector todo = armors;
