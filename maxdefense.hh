@@ -227,7 +227,19 @@ std::unique_ptr<ArmorVector> filter_armor_vector
 )
 {
 	// TODO: implement this function, then delete the return statement below
-	return nullptr;
+	std::unique_ptr<ArmorVector> filtered = std::make_unique<ArmorVector>();
+	//std::unique_ptr<ArmorVector> filtered (new ArmorVector); both work 
+	
+	for(auto armor : source){
+		if ( armor->defense() >= min_defense && armor->defense() <= max_defense){
+			filtered->push_back(armor);			
+			if (filtered->size() >= total_size){
+				break;
+			}	
+		}
+	} 
+
+	return filtered;
 }
 
 
@@ -242,7 +254,18 @@ std::unique_ptr<ArmorVector> greedy_max_defense
 	double total_cost
 )
 {
+	std::unique_ptr<ArmorVector> greedy = std::make_unique<ArmorVector>();
+
 	// TODO: implement this function, then delete the return statement below
+	/*ArmorVector todo = armors;
+
+	std::unique_ptr<ArmorVector> result;
+	double result_cost = 0;
+
+	while(todo.size() != 0){
+		todo.
+	}
+	return result; */
 	return nullptr;
 }
 
