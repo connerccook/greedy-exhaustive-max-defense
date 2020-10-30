@@ -226,7 +226,6 @@ std::unique_ptr<ArmorVector> filter_armor_vector
 	int total_size
 )
 {
-	// TODO: implement this function, then delete the return statement below
 	std::unique_ptr<ArmorVector> filtered = std::make_unique<ArmorVector>();
 	//std::unique_ptr<ArmorVector> filtered (new ArmorVector); both work 
 	
@@ -254,19 +253,59 @@ std::unique_ptr<ArmorVector> greedy_max_defense
 	double total_cost
 )
 {
-	//std::unique_ptr<ArmorVector> greedy = std::make_unique<ArmorVector>();
-
-	// TODO: implement this function, then delete the return statement below
-	/*ArmorVector todo = armors;
-
-	std::unique_ptr<ArmorVector> result;
-	double result_cost = 0;
-
-	while(todo.size() != 0){
-		todo.
+	std::unique_ptr<ArmorVector> result = std::make_unique<ArmorVector>();
+	//std::unique_ptr<ArmorVector> result(new ArmorVector(armors));
+	//ArmorVector todo = armors;
+	std::unique_ptr<ArmorVector> todo(new ArmorVector(armors));
+	
+	//int result_cost = 0;
+	double result_cost = 0.0;
+	
+	while (todo->size() != 0){
+		size_t max_armor_index = -1;
+	    std::shared_ptr<ArmorItem> max_armor = todo->at(0);
+		double max_armor_value = 0.0;	
+		
+		for(size_t i = 0; i < todo->size(); i++ ){
+			auto armor = todo->at(i);
+			
+			if((result_cost + armor->cost()) <= total_cost){
+			
+			//result->push_back(armor);
+			//result_cost += armor->cost();
+			double armor_value = armor->defense() / armor->cost();
+			if ( armor_value > max_armor_value )
+				{
+					max_armor = armor;
+					max_armor_value = armor_value;
+					max_armor_index =i;
+				}
+			}
+		}
+		if (max_armor_index == -1) { break;}
+		
+		result->push_back(max_armor);
+		result_cost += max_armor->cost();
+		todo->erase(todo->begin() + max_armor_index);
 	}
-	return result; */
-	return nullptr;
+	return result;
+	
+	//std::unique_ptr<ArmorVector> result = std::make_unique<ArmorVector>();
+	/*ArmorVector todo = armors;
+	int result_cost = 0;
+	while (todo.size() != 0){
+
+		for(auto armor : armors){
+			
+			if((result_cost + armor->cost()) <= total_cost){
+			result->push_back(armor);
+			result_cost += armor->cost();
+			}
+		}
+	}
+	return result;
+	*/
+	//return nullptr;
 }
 
 
@@ -284,7 +323,32 @@ std::unique_ptr<ArmorVector> exhaustive_max_defense
 	const int n = armors.size();
 	assert(n < 64);
 	
-	// TODO: implement this function, then delete the return statement below
+	std::unique_ptr<ArmorVector> bestVector = std::make_unique<ArmorVector>();
+	std::shared_ptr<ArmorItem> bestItem = nullptr;
+	
+
+	/*for (uint64_t bits = 0; bits < (pow(2.0,n)-1)){
+		ArmorVector candidates;
+		for(u_int64_t j = 0; j < n-1; j++){
+			if(((bits >> j)) & 1 == 1){
+				candidates.push_back(armors[j]);
+			}
+		}
+		
+	}
+	//bestVector->push_back(bestItem);
+	
+	for(auto candidate : armors){
+		if(candidate->cost() <= total_cost){
+			if(bestItem == nullptr || (candidate->defense() > bestItem->defense())){
+				bestVector->push_back(candidate);
+				bestItem = candidate;
+			}
+		}
+	}*/
+
+	
+	//return bestVector;
 	return nullptr;
 }
 
