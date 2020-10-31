@@ -300,6 +300,24 @@ std::unique_ptr<ArmorVector> exhaustive_max_defense
 	assert(n < 64);
 
 	std::unique_ptr<ArmorVector> best_vector = std::make_unique<ArmorVector>();
+	double candidate_cost, candidate_defense, best_cost, best_defense;
 	
+	for(uint64_t bits = 0; bits < pow(2,0); bits++){
+		std::unique_ptr<ArmorVector> candidates = std::make_unique<ArmorVector>();
+		for(int j = 0; j < n; j++){
+			if(((bits >> j) & 1) == 1) {
+				candidates->push_back(armors[j]);
+			}
+		}
+		
+		sum_armor_vector(*candidates, candidate_cost, candidate_defense);
+		sum_armor_vector(*best_vector, best_cost, best_defense);
+		if(candidate_cost <= total_cost){
+			if(best_vector->empty() || candidate_defense > best_defense){
+				*best_vector = *candidates;
+			}
+		}
+	
+	}
 	return bestVector;
 }
