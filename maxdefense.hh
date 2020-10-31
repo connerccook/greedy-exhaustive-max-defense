@@ -19,9 +19,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
 #include "timer.hh"
-// One armor item available for purchase.
+
 class ArmorItem
 {
 	//
@@ -227,7 +226,6 @@ std::unique_ptr<ArmorVector> filter_armor_vector
 )
 {
 	std::unique_ptr<ArmorVector> filtered = std::make_unique<ArmorVector>();
-	//std::unique_ptr<ArmorVector> filtered (new ArmorVector); both work
 
 	for(auto armor : source){
 		if ( armor->defense() >= min_defense && armor->defense() <= max_defense){
@@ -301,17 +299,7 @@ std::unique_ptr<ArmorVector> exhaustive_max_defense
 	const int n = armors.size();
 	assert(n < 64);
 
-	std::unique_ptr<ArmorVector> bestVector = std::make_unique<ArmorVector>();
-	std::shared_ptr<ArmorItem> bestItem = nullptr;
-while(n<64){
-	for(auto candidate : armors){ //For each loop to traverse through each armor item
-		if(candidate->cost() <= total_cost){
-			if(bestItem == nullptr || (candidate->defense() > bestItem->defense())){ //Compares the current item(if any) with the next item
-				bestVector->push_back(candidate); //Pushes candidate into best vector
-				bestItem = candidate; // New best item
-			}
-		}
-	}
-}
+	std::unique_ptr<ArmorVector> best_vector = std::make_unique<ArmorVector>();
+	
 	return bestVector;
 }
