@@ -280,7 +280,6 @@ std::unique_ptr<ArmorVector> greedy_max_defense
 		result_cost += max_armor->cost(); //Adds armor cost to total cost
 		todo->erase(todo->begin() + max_armor_index); //Removes the armor
 	}
-
 	return result;
 }
 
