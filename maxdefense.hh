@@ -298,26 +298,30 @@ std::unique_ptr<ArmorVector> exhaustive_max_defense
 {
 	const int n = armors.size();
 	assert(n < 64);
-
-	std::unique_ptr<ArmorVector> best_vector = std::make_unique<ArmorVector>();
-	double candidate_cost, candidate_defense, best_cost, best_defense;
+	double cost=0.0;
+	double defense=0.0;
+	double best_defense = 0.0;
 	
-	for(uint64_t bits = 0; bits < pow(2,0); bits++){
-		std::unique_ptr<ArmorVector> candidates = std::make_unique<ArmorVector>();
-		for(int j = 0; j < n; j++){
-			if(((bits >> j) & 1) == 1) {
+	std::unique_ptr<ArmorVector> bestVector(new ArmorVector);
+	std::unique_ptr<ArmorVector> candidates(new ArmorVector);
+
+	bool flag = false;
+
+	for (uint64_t bits = 0; bits < pow(2,n); bits++){
+		candidates->clear();
+		for(u_int64_t j = 0; j < n; j++){
+			if(((bits >> j) & 1) == 1){
 				candidates->push_back(armors[j]);
 			}
 		}
-		
-		sum_armor_vector(*candidates, candidate_cost, candidate_defense);
-		sum_armor_vector(*best_vector, best_cost, best_defense);
-		if(candidate_cost <= total_cost){
-			if(best_vector->empty() || candidate_defense > best_defense){
-				*best_vector = *candidates;
+		sum_armor_vector(*candidates,cost,defense);
+		if(cost <= total_cost){
+			if (!flag || defense > best_defense) {
+			best_defense = defense;
+			*bestVector = *candidates;
+			flag = true;
 			}
 		}
-	
 	}
 	return bestVector;
 }
